@@ -1,47 +1,37 @@
 # Sampling_Assignment-102303158
-
 Sampling Assignment – Credit Card Fraud Detection
 
-## Objective
-The goal of this assignment is to learn about the importance of **sampling techniques** when working with **imbalanced datasets** and to explore how different sampling methods impact the performance and accuracy of various machine learning models.
+The goal of this assignment is to examine how different sampling methods affect the performance of various machine learning models when working with an imbalanced dataset.
 
 
----
+The credit card dataset provided is highly imbalanced, which can lead to poor model performance.
+The task involves applying different sampling techniques, training multiple machine learning models, and comparing their accuracy to find out which sampling strategy works best for each model.
 
-## Problem Statement
-The credit card dataset provided is heavily imbalanced, which can greatly affect how well a model performs in real situations.
-The task is to balance the dataset using different sampling methods, train several machine learning models on those balanced datasets, and examine how sampling affects model accuracy.
-
----
-
-## Dataset
-The dataset is available from this GitHub link:
+Dataset Source:
 
 https://github.com/AnjulaMehto/Sampling_Assignment/blob/main/Creditcard_data.csv
 
-- The target column is **Class**
+- Target Column: **Class**
 - `0` → Normal transaction
 - `1` → Fraudulent transaction
 
----
+Sampling Techniques Used
 
-## Sampling Techniques Used
-Five sampling techniques were applied:
+Five classical sampling techniques were implemented:
 
 1.
-**Random Over Sampling**
+**Simple Random Sampling** – Random selection where every data point has an equal chance of being selected.
 2.
-**Random Under Sampling**
+**Bootstrap Sampling** – Sampling with replacement.
 3.
-**SMOTE (Synthetic Minority Over-sampling Technique)**
+**Cluster Sampling** – Sampling entire groups (clusters) of data.
 4.
-**SMOTEENN (SMOTE + Edited Nearest Neighbors)**
+**Stratified Sampling** – Preserves the class distribution during sampling.
 5.
-**No Sampling (Original Dataset)**
+**Systematic Sampling** – Selecting samples at regular intervals.
 
----
+Machine Learning Models Used
 
-## Machine Learning Models Used
 Five machine learning models were trained on each sampled dataset:
 
 - **M1** – Logistic Regression
@@ -50,53 +40,66 @@ Five machine learning models were trained on each sampled dataset:
 - **M4** – Support Vector Machine (SVM)
 - **M5** – Naive Bayes
 
----
+Evaluation Metric
 
-## Evaluation Metric
-- **Accuracy (%)** was used to compare how well different models and sampling techniques performed.
+- **Accuracy (%)** was used as the evaluation metric to compare model performance.
 
 
----
+Accuracy Table (%)
 
-## Accuracy Table (%)
+| Model | Simple Random | Bootstrap | Cluster | Stratified | Systematic |
+|------------------------------|---------------|-----------|---------|------------|------------|
+| M1 (Logistic Regression) | 100.00 | 98.06 | 100.00 | 98.39 | 100.00 |
+| M2 (Decision Tree) | 98.71 | 98.71 | 100.00 | 96.77 | 100.00 |
+| M3 (Random Forest) | 100.00 | 98.71 | 100.00 | 98.39 | 100.00 |
+| M4 (SVM) | 100.00 | 98.06 | 100.00 | 98.39 | 100.00 |
+| M5 (Naive Bayes) | 97.42 | 89.03 | 100.00 | 97.58 | 100.00 |
 
-| Model | RandomOver | RandomUnder | SMOTE | SMOTEENN | NoSampling |
-|------|------------|------------|-------|----------|------------|
-| M1 (Logistic Regression) | 93.14 | 25.00 | 93.14 | 93.52 | 99.35 |
-| M2 (Decision Tree) | 99.02 | 75.00 | 97.71 | 97.95 | 96.77 |
-| M3 (Random Forest) | 100.00 | 0.00 | 99.35 | 99.32 | 99.35 |
-| M4 (SVM) | 96.08 | 0.00 | 96.73 | 99.66 | 99.35 |
-| M5 (Naive Bayes) | 75.82 | 25.00 | 72.55 | 73.72 | 98.06 |
-
-The accuracy results are generated automatically and saved as a CSV file called `results/accuracy_table.
+The table above is generated automatically and saved as `results/accuracy_table.
 csv`.
 
----
+Best Sampling Technique for Each Model
 
-## Visual Analysis
+| Model | Best Sampling Technique | Best Accuracy (%) |
+|------------------------------|-------------------------|-------------------|
+| M1 – Logistic Regression | Simple Random | 100.00 |
+| M2 – Decision Tree | Cluster | 100.00 |
+| M3 – Random Forest | Simple Random | 100.00 |
+| M4 – SVM | Simple Random | 100.00 |
+| M5 – Naive Bayes | Cluster | 100.00 |
 
-### Model-wise Accuracy Comparison
-This grouped bar chart compares the accuracy of each machine learning model across all sampling techniques.
+Visual Analysis
+
+Graphs are created to visually compare performance and are saved in the `results/` folder.
 
 
-<img width="1289" height="590" alt="image" src="https://github.com/user-attachments/assets/c0faa710-be6b-4ceb-b377-c5b328fb8b78" />
-
-- This chart helps identify the best model–sampling combinations.
+- <img width="1290" height="590" alt="image" src="https://github.com/user-attachments/assets/281fbcc8-427d-4edb-a9be-8d8475d5f411" />
 
 
----
+-<img width="790" height="490" alt="image" src="https://github.com/user-attachments/assets/8e3009e4-ca59-4436-a56d-a25887ed2d52" />
+ – Shows average accuracy per sampling method.
 
-## Key Observations
-- **Random Forest and SVM** perform well with oversampling methods.
+- <img width="933" height="590" alt="image" src="https://github.com/user-attachments/assets/c4418a73-a49a-43fa-ab2b-80c9720af761" />
 
-- **Random Under Sampling** leads to very poor results because it removes important information from the majority class.
 
-- **SMOTE and SMOTEENN** offer a good balance between accuracy and reliability.
 
-- Strong models like Random Forest also show good results even without any sampling.
+Key Observations
 
-## How to Run the Code
+- **Simple Random Sampling** performs well for Logistic Regression, Random Forest, and SVM.
 
-### Install required libraries
+- **Cluster Sampling** provides the best performance for Decision Tree and Naive Bayes models.
+
+- **Bootstrap Sampling** generally performs slightly worse due to repeated samples.
+
+- Several models achieved **100% accuracy**, which can happen when the dataset becomes highly separable after sampling.
+
+- Accuracy alone may not be enough in real-world scenarios; additional metrics can offer better insight.
+
+
+How to Run the Code
+
+Install required libraries
+
 ```bash
-pip install numpy pandas scikit-learn imbalanced-learn matplotlib seaborn
+pip install numpy pandas scikit-learn matplotlib seaborn
+```ll numpy pandas scikit-learn imbalanced-learn matplotlib seaborn
